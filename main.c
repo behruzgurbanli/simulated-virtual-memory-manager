@@ -9,6 +9,10 @@
 #define NUM_FRAMES 256
 #define MAX_PAGES NUM_FRAMES
 
+int total_requests = 0;
+int total_page_faults = 0;
+int total_tlb_hits = 0;
+
 typedef struct {
     unsigned int page_number;
     unsigned int frame_number;
@@ -70,6 +74,7 @@ void update_TLB(unsigned int page_number, unsigned int frame_number) {
 int search_TLB(unsigned int page_number) {
     for (int i = 0; i < TLB_SIZE; i++) {
         if (tlb[i].valid && tlb[i].page_number == page_number) {
+            total_tlb_hits++;
             return tlb[i].frame_number; // TLB hit, return frame_number
         }
     }
@@ -109,6 +114,7 @@ int read_page_from_disk(unsigned int page_number) {
 }
 
 int handle_page_fault(unsigned int page_number) {
+    total_page_faults++;
     int frame_number = read_page_from_disk(page_number);
     if (frame_number != -1) {
         update_page_table(page_number, frame_number);
@@ -136,22 +142,48 @@ int main(int argc, char *argv[]) {
     init_physical_memory();
     init_page_table();
 
+    FILE *log_file = fopen("log.txt", "w");
+    if (!log_file) {
+        perror("Failed to open log file");
+        return EXIT_FAILURE;
+    }
+
+    fprintf(log_file, "- - - - - System information - - - - -\n");
+    fprintf(log_file, "Page Size: %d bytes\n", PAGE_SIZE);
+    fprintf(log_file, "Number of Frames: %d\n", NUM_FRAMES);
+    fprintf(log_file, "TLB Size: %d entries\n", TLB_SIZE);
+    fprintf(log_file, "Physical Memory Size: %d KB\n", NUM_FRAMES * (PAGE_SIZE / 1024));
+    fprintf(log_file, "- - - - - - - - - - -\n\n");
+
     // Reading the logical addresses from the file
     while (fscanf(virtual_addr_file, "%u", &logical_address) != EOF) {
-        
+        total_requests++;
+
         page_number = logical_address / PAGE_SIZE;
         offset = logical_address % PAGE_SIZE;
         frame_number = search_TLB(page_number); // Search TLB for page_number
 
-        if (frame_number != -1) 
-            printf("Logical address: %5u,  Page number: %3u,  Offset: %3u, Frame number: %3u (TLB Hit)\n", logical_address, page_number, offset, frame_number);
-        else {
+        if (frame_number == -1)
             frame_number = handle_page_fault(page_number);
-            printf("Logical address: %5u,  Page number: %3u,  Offset: %3u, Frame number: %3u (TLB Miss)\n", logical_address, page_number, offset, frame_number);
-        }
+
+        // Physical address calculation
+        unsigned int physical_address = (frame_number * PAGE_SIZE) + offset;
+
+        // Reading the value from the physical memory
+        unsigned char value = physical_memory[frame_number][offset];
+
+        fprintf(log_file, "Virtual Address: %u, Physical Address: %u, Value: %u\n",
+                                        logical_address, physical_address, value);
     }
 
+    float page_fault_rate = (float)total_page_faults / total_requests * 100;
+    float tlb_hit_rate = (float)total_tlb_hits / total_requests * 100;
+
+    fprintf(log_file, "\nPage Fault Rate: %.3f%%\n", page_fault_rate);
+    fprintf(log_file, "TLB Hit Rate: %.3f%%\n", tlb_hit_rate);
+
     fclose(virtual_addr_file);
+    fclose(log_file);
     return EXIT_SUCCESS;
 
 }
