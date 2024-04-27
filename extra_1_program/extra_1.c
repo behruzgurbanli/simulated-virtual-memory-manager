@@ -1,4 +1,4 @@
-#include "types_constants.h"
+#include "extra_1_types_constants.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     init_physical_memory(physical_memory);
     init_page_table(page_table);
 
-    FILE *log_file = fopen("log.txt", "w");
+    FILE *log_file = fopen("extra_1_log.txt", "w");
     if (!log_file) {
         perror("Failed to open log file");
         return EXIT_FAILURE;
