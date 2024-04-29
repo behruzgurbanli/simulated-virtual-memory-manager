@@ -60,9 +60,16 @@ int main(int argc, char *argv[]) {
         offset = logical_address % PAGE_SIZE;
         frame_number = search_TLB(tlb, page_number, &total_tlb_hits);
 
-        if (frame_number == -1) {
+    if (frame_number == -1) { // TLB Miss
+        if (page_table[page_number].valid) 
+            frame_number = page_table[page_number].frame_number;
+        else {
             frame_number = handle_page_fault(page_table, tlb, page_number, frame_occupied, &total_page_faults);
+            // Increment total TLB hits when TLB is updated after a TLB miss
+            total_tlb_hits++;
         }
+    }
+
 
         // Physical address calculation
         unsigned int physical_address = (frame_number * PAGE_SIZE) + offset;
