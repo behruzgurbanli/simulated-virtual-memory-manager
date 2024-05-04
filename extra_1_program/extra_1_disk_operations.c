@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern void update_frame_queue(int frame_number);
+
 int read_page_from_disk(unsigned int page_number, unsigned char physical_memory[NUM_FRAMES][FRAME_SIZE], bool *frame_occupied) {
     const char *disk_filename = "disk_sim";
     FILE *disk = fopen(disk_filename, "rb");
@@ -23,6 +25,7 @@ int read_page_from_disk(unsigned int page_number, unsigned char physical_memory[
                 memcpy(physical_memory[i], BUFFER, PAGE_SIZE);
                 frame_occupied[i] = true;
                 frame_number = i;
+                update_frame_queue(frame_number);
                 break;
             }
         }

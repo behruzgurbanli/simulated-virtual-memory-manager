@@ -3,11 +3,12 @@
 #include <stdlib.h>
 
 extern void init_TLB(TLBEntry *tlb);
-extern void init_physical_memory(unsigned char physical_memory[NUM_FRAMES][PAGE_SIZE]);
+extern void init_physical_memory(unsigned char physical_memory[NUM_FRAMES][FRAME_SIZE]);
 extern void init_page_table(PageTableEntry *page_table);
 extern void update_page_table(PageTableEntry *page_table, unsigned int page_number, unsigned int frame_number);
 extern int handle_page_fault(PageTableEntry *page_table, TLBEntry *tlb, unsigned int page_number, bool *frame_occupied, int *total_page_faults);
 extern int search_TLB(const TLBEntry *tlb, unsigned int page_number, int *total_tlb_hits);
+extern void update_frame_queue(int frame_number);
 
 int total_requests = 0;
 int total_page_faults = 0;
@@ -58,10 +59,13 @@ int main(int argc, char *argv[]) {
         frame_number = search_TLB(tlb, page_number, &total_tlb_hits);
 
         if (frame_number == -1) { // TLB Miss
-            if (page_table[page_number].valid) 
+            if (page_table[page_number].valid) {
                 frame_number = page_table[page_number].frame_number;
-            else
+                update_frame_queue(frame_number);
+                page_table[page_number].referenced = true;
+            } else {
                 frame_number = handle_page_fault(page_table, tlb, page_number, frame_occupied, &total_page_faults);
+            }
         }
 
         // Physical address calculation

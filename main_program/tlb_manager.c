@@ -23,5 +23,6 @@ int search_TLB(const TLBEntry *tlb, unsigned int page_number, int *total_tlb_hit
             return tlb[i].frame_number;
         }
     }
+    
     return -1;
 }
