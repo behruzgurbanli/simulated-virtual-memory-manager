@@ -15,6 +15,7 @@ This project simulates a virtual memory manager with support for different page 
 ### Installation
 Clone the repository using git:
 `git clone https://github.com/yourusername/memory-management-simulator.git`
+
 `cd memory-management-simulator`
 ### Compilation
 Compile the program using GCC:
