@@ -1,0 +1,11 @@
+- - - - - System information - - - - -
+Page Size: 256 bytes
+Number of Frames: 256
+TLB Size: 16 entries
+Physical Memory Size: 64 KB
+- - - - - - - - - - -
+
+Virtual Address: 43607, Physical Address: 7255, Value: 149
+
+Page Fault Rate: 8.533%
+TLB Hit Rate: 14.733%

@@ -15,5 +15,6 @@ void init_physical_memory(unsigned char physical_memory[NUM_FRAMES][FRAME_SIZE])
 void init_page_table(PageTableEntry *page_table) {
     for (int i = 0; i < MAX_PAGES; i++) {
         page_table[i].valid = false;
+        page_table[i].referenced = false;  // initializing the referenced bit as false which means 0 in terms of algorithm
     }
 }
