@@ -1,59 +1,38 @@
-
-# Virtual Memory Management Simulation
-
-This repository contains a C project designed to simulate the workings of virtual memory management, including mechanisms like TLB (Translation Lookaside Buffer), page table, and disk operations for handling page faults. It is intended as an educational tool to help understand how operating systems handle memory.
+# Memory Management Simulator
+This project simulates a virtual memory manager with support for different page replacement algorithms. It's designed to help users understand how different memory management strategies work, including FIFO, Second Chance, and LRU (Least Recently Used) algorithms.
 
 ## Features
-
-- TLB with FIFO replacement strategy
-- Page table management
-- Disk operations simulating hard disk reads
-- Logging of operations and memory states
-
+- Simulated Virtual Memory Manager: Implements a basic virtual memory management system.
+- Page Replacement Algorithms:
+- FIFO (First In First Out): Pages are removed in the order they were added.
+- Second Chance: An enhancement over FIFO that gives pages a second chance before removal.
+- LRU (Least Recently Used): Pages least recently accessed are removed first.
 ## Getting Started
-
 ### Prerequisites
-
-Ensure you have GCC installed on your machine to compile the project. GCC can be installed via package managers on most Linux distributions, and on macOS with Homebrew.
-
-### Compiling the Project
-
-Navigate to the project directory where the source files are located and run the following command:
-
-```bash
-gcc -o vm_sim main.c memory_initialization.c tlb_manager.c page_manager.c disk_operations.c -I.
-```
-
-This command compiles the source files and links them into a single executable named `vm_sim`.
-
-### Running the Simulation
-
-To run the program, simply execute:
-
-```bash
-./vm_sim
-```
-
-Ensure you have the necessary data files in the same directory, such as `addresses.txt`, which should contain the virtual addresses to be resolved by the simulation.
-
-## Project Structure
-
-- `main.c`: The entry point of the program. It handles file operations and coordinates the simulation.
-- `memory_initialization.c`: Initializes TLB, page tables, and physical memory.
-- `tlb_manager.c`: Manages TLB operations, including search and update functions.
-- `page_manager.c`: Handles page table updates and page faults.
-- `disk_operations.c`: Simulates reading pages from a disk when page faults occur.
-- `types_constants.h`: Contains type definitions and constants used across the project.
-
-## Additional Notes
-
-- The simulation is designed for educational purposes and does not encompass all aspects of a real operating system's memory management.
-- Modify the `addresses.txt` to test different scenarios or virtual address patterns.
+- GCC compiler or any standard C compiler
+- Make (optional for building)
+- Basic command line knowledge
+### Installation
+Clone the repository using git:
+`git clone https://github.com/yourusername/memory-management-simulator.git`
+`cd memory-management-simulator`
+### Compilation
+Compile the program using GCC:
+`gcc -o memory_manager main.c page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -Wall`
+Alternatively, if you have a Makefile:
+`make`
+### Usage
+Run the program by specifying the algorithm type:
+`./memory_manager`
+Upon execution, the program will prompt you to choose the page replacement algorithm by entering a number:
+`Choose algorithm (1 for FIFO, 2 for Second Chance, 3 for LRU):`
+Enter the number corresponding to the desired algorithm and press Enter.
 
 ## Contributing
+Contributions to enhance the functionality, improve the simulation accuracy, or refactor the codebase are welcome. Please follow the steps below:
 
-Contributions are welcome! If you'd like to improve the simulation or extend it, please fork the repository and submit a pull request.
-
-## License
-
-This project is open-source and available under the MIT License.
+- Fork the repository.
+- Create your feature branch (git checkout -b feature/AmazingFeature).
+- Commit your changes (git commit -am 'Add some AmazingFeature').
+- Push to the branch (git push origin feature/AmazingFeature).
+- Open a pull request.
