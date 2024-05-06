@@ -15,22 +15,27 @@ This project simulates a virtual memory manager with support for different page 
 
 ### Installation
 Clone the repository using git:
+
 `git clone https://github.com/yourusername/memory-management-simulator.git`
 
 `cd memory-management-simulator`
 
 ### Compilation
 Compile the program using GCC:
+
 `gcc -o memory_manager main.c page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -Wall`
 
 Alternatively, if you have a Makefile:
+
 `make`
 
 ### Usage
 Run the program by specifying the algorithm type:
+
 `./memory_manager`
 
 Upon execution, the program will prompt you to choose the page replacement algorithm by entering a number:
+
 `Choose algorithm (1 for FIFO, 2 for Second Chance, 3 for LRU):`
 
 Enter the number corresponding to the desired algorithm and press Enter.
