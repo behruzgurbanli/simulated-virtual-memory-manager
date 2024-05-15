@@ -21,13 +21,13 @@ Clone the repository using git:
 `https://github.com/behruzgurbanli/simulated-virtual-memory-manager`
 
 ### Compilation
-1. Compile the program using GCC:
+1.Compile the program using GCC:
 
-  `gcc main.c -o mainprogram page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -I.`
+`gcc main.c -o mainprogram page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -I.`
 
-2. Alternatively, if you have a Makefile:
+2.Alternatively, if you have a Makefile:
 
-  `make`
+`make`
 
 ### Usage
 Execute the program by running:
