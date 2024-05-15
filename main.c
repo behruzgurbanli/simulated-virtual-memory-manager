@@ -104,8 +104,6 @@ int main(int argc, char *argv[]) {
                 fprintf(stderr, "Invalid choice.\n");
                 return EXIT_FAILURE;
         }
-            
-    }
 
         // Physical address calculation
         unsigned int physical_address = (frame_number * PAGE_SIZE) + offset;
@@ -115,6 +113,8 @@ int main(int argc, char *argv[]) {
 
         fprintf(log_file, "Virtual Address: %u, Physical Address: %u, Value: %u\n",
                                         logical_address, physical_address, value);
+            
+    }
 
     float page_fault_rate = (float)total_page_faults / total_requests * 100;
     float tlb_hit_rate = (float)total_tlb_hits / total_requests * 100;
