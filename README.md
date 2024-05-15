@@ -21,11 +21,11 @@ Clone the repository using git:
 `https://github.com/behruzgurbanli/simulated-virtual-memory-manager`
 
 ### Compilation
-1.Compile the program using GCC:
+1. Compile the program using GCC:
 
 `gcc main.c -o mainprogram page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -I.`
 
-2.Alternatively, if you have a Makefile:
+2. Alternatively, if you have a Makefile:
 
 `make`
 
@@ -44,7 +44,7 @@ Enter the number corresponding to the desired algorithm and press Enter. A log f
 Contributions to enhance the functionality, improve the simulation accuracy, or refactor the codebase are welcome. Please follow the steps below:
 
 - Fork the repository.
-- Create your feature branch (git checkout -b feature/AmazingFeature).
-- Commit your changes (git commit -am 'Add some AmazingFeature').
-- Push to the branch (git push origin feature/AmazingFeature).
+- Create your feature branch (git checkout -b feature/NewFeature).
+- Commit your changes (git commit -am 'Add some NewFeature').
+- Push to the branch (git push origin feature/NewFeature).
 - Open a pull request.
