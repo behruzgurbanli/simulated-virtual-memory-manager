@@ -22,16 +22,20 @@ Clone the repository using git:
 
 ### Compilation
 1.Compile the program using GCC:
+
 `gcc main.c -o mainprogram page_manager.c tlb_manager.c disk_operations.c memory_initialization.c -I.`
 
 2.Alternatively, if you have a Makefile:
+
 `make`
 
 ### Usage
 Execute the program by running:
+
 `./mainprogram`
 
 Upon execution, the program will prompt you to choose the page replacement algorithm by entering a number:
+
 `Choose algorithm (1 for FIFO, 2 for Second Chance, 3 for LRU):`
 
 Enter the number corresponding to the desired algorithm and press Enter. A log file named log.txt will be generated, containing the execution log.
